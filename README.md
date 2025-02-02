@@ -1,4 +1,4 @@
-# Spider
+# Text Display Experiments
 ## Introduction
 This plugin showcases unusual ways to use Minecraft's text display entities.
 
@@ -12,11 +12,11 @@ This plugin is very experimental and untested in multiplayer. Use at your own ri
 1. Download the JAR from the [releases page](https://github.com/TheCymaera/minecraft-spider/releases/).
 2. Set up a [Paper](https://papermc.io/downloads) or [Spigot](https://getbukkit.org/download/spigot) server. (Instructions below)
 3. Add the JAR to the `plugins` folder.
-4. Download the world folder from [Planet Minecraft](https://www.planetminecraft.com/project/spider-garden/).
-5. Place the world folder in the server directory. Name it `world`.
+<!--4. Download the world folder from [Planet Minecraft](https://www.planetminecraft.com/project/spider-garden/).-->
+<!--5. Place the world folder in the server directory. Name it `world`.-->
 
 ## Running a Server
-1. Download a 1.21 server JAR from [Paper](https://papermc.io/downloads) or [Spigot](https://getbukkit.org/download/spigot).
+1. Download a server JAR from [Paper](https://papermc.io/downloads) or [Spigot](https://getbukkit.org/download/spigot).
 2. Run the following command `java -Xmx1024M -Xms1024M -jar server.jar nogui`.
 3. I typically use the Java runtime bundled with my Minecraft installation so as to avoid version conflicts.
    - In Modrinth, you can find the Java runtime location inside the profile options menu.
