@@ -4,6 +4,7 @@ import com.heledron.text_display_experiments.bitmaps.scenes.MandelbrotSetScene
 import com.heledron.text_display_experiments.bitmaps.scenes.RainbowTriangleScene
 import com.heledron.text_display_experiments.bitmaps.scenes.RotatingCubeScene
 import com.heledron.text_display_experiments.bitmaps.scenes.Scene
+import com.heledron.text_display_experiments.bitmaps.scenes.UnixSystemScene
 import com.heledron.text_display_experiments.textBackgroundTransform
 import com.heledron.text_display_experiments.utilities.*
 import com.heledron.text_display_experiments.utilities.rendering.RenderEntityGroup
@@ -65,6 +66,8 @@ fun setupBitmapDisplay() {
         bitmapScene = when (bitmapScene) {
             is RainbowTriangleScene -> RotatingCubeScene()
             is RotatingCubeScene -> MandelbrotSetScene()
+            is MandelbrotSetScene -> UnixSystemScene()
+            is UnixSystemScene -> RainbowTriangleScene()
             else -> RainbowTriangleScene()
         }
 
@@ -198,6 +201,12 @@ fun setupBitmapDisplay() {
                 }
             ))
         }
+    }
+
+    // Handle player chat input
+    onPlayerChat { player, message ->
+        val unixSystemScene = bitmapScene as? UnixSystemScene ?: return@onPlayerChat
+        unixSystemScene.handlePlayerChatInput(player, message)
     }
 }
 

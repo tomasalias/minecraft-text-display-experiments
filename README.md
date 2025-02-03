@@ -138,6 +138,16 @@ Firefly particles (Run on repeat):
 summon minecraft:area_effect_cloud ~ ~1 ~ {BukkitValues:{"firefly_particles:amount": 3}}
 ```
 
+Unix system:
+```
+# Switch to Unix System scene
+execute unless entity @e[tag=bitmap_display] run summon minecraft:marker ~ ~1.25 ~ {Tags:["pre_bitmap_display"],Rotation:[90f,0f]}
+tag @e[tag=pre_bitmap_display] add bitmap_display
+execute if entity @e[tag=bitmap_display] run playsound minecraft:block.beacon.activate block @a ~ ~ ~ 1 1
+
+# Use player chat to input Unix commands
+say <your_unix_command>
+```
 
 ## Development
 1. Clone or download the repo.
