@@ -80,15 +80,20 @@ fun setupTextEntityUtilities() {
 
             val colorCode = tag.substringAfterLast(".")
 
-            if (colorCode == "clear") {
-                player.persistentDataContainer.remove(NamespacedKey.fromString("screen_overlay:color")!!)
-            } else {
-                player.persistentDataContainer.setString(NamespacedKey.fromString("screen_overlay:color")!!, colorCode)
-            }
+            player.scoreboardTags.removeIf { it.startsWith("screen_overlay_active.") }
+            if (colorCode != "clear") player.scoreboardTags.add("screen_overlay_active.$colorCode")
         }
 
         for (player in Bukkit.getServer().onlinePlayers) {
-            val color = player.persistentDataContainer.getColor(NamespacedKey.fromString("screen_overlay:color")!!) ?: continue
+            val tag = player.scoreboardTags.firstOrNull { it.startsWith("screen_overlay_active.") } ?: continue
+            val colorCode = tag.substringAfterLast(".")
+            val color = try {
+                Color.fromARGB(colorCode.toLong(radix = 16).toInt())
+            } catch (e: NumberFormatException) {
+                continue
+            } catch (e: IllegalArgumentException) {
+                continue
+            }
 
             for ((i,transform) in transforms.withIndex()) SharedEntityRenderer.render("screen_overlay" to player to i, textRenderEntity(
                 world = player.world,

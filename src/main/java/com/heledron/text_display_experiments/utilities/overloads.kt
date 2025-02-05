@@ -25,8 +25,14 @@ fun PersistentDataContainer.setString(key: NamespacedKey, value: String) = this.
 
 fun PersistentDataContainer.getColor(key: NamespacedKey): Color? {
     val string = getString(key) ?: return null
-    val parsed = string.toLongOrNull(radix = 16)?.toInt() ?: return null
-    return Color.fromARGB(parsed)
+    try {
+        val parsed = string.toLongOrNull(radix = 16)?.toInt() ?: return null
+        return Color.fromARGB(parsed)
+    } catch (e: NumberFormatException) {
+        return null
+    } catch (e: IllegalArgumentException) {
+        return null
+    }
 }
 
 fun PersistentDataContainer.setColor(key: NamespacedKey, value: Color) {
