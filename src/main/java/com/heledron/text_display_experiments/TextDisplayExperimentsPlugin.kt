@@ -5,6 +5,7 @@ import com.heledron.text_display_experiments.paint_program.setupPaintProgram
 import com.heledron.text_display_experiments.particle_system.setupParticleSystem
 import com.heledron.text_display_experiments.point_detector_visualizer.setUpPointDetectorVisualizer
 import com.heledron.text_display_experiments.utilities.*
+import com.heledron.text_display_experiments.commands.UnixCommands
 import org.bukkit.entity.Player
 import org.bukkit.plugin.java.JavaPlugin
 import org.joml.*
@@ -41,36 +42,24 @@ class TextDisplayExperimentsPlugin : JavaPlugin() {
             true
         }
 
-//        getCommand("player_set_data")?.apply {
-//            setExecutor { sender, _, _, args ->
-//                val entitySelector = args.getOrNull(1) ?: run {
-//                    sender.sendMessage("No entity selector provided")
-//                    return@setExecutor true
-//                }
-//
-//                val player = entitySelector.let {
-//                    Bukkit.selectEntities(sender, it).firstOrNull() as? Player
-//                } ?: run {
-//                    sender.sendMessage("No player found")
-//                    return@setExecutor true
-//                }
-//
-//                val key = args.getOrNull(2)?.let { NamespacedKey.fromString(it) } ?: run {
-//                    sender.sendMessage("No key provided")
-//                    return@setExecutor true
-//                }
-//
-//                val value = args.getOrNull(3) ?: run {
-//                    sender.sendMessage("No value provided")
-//                    return@setExecutor true
-//                }
-//
-//                player.persistentDataContainer.
-//
-//
-//                sender.sendMessage("Modified player data")
-//                true
-//            }
-//        }
+        getCommand("input")?.setExecutor { sender, _, _, args ->
+            val player = sender as? Player ?: run {
+                sender.sendMessage("Only players can use this command")
+                return@setExecutor true
+            }
+
+            if (args.isEmpty()) {
+                player.sendMessage("No command provided")
+                return@setExecutor true
+            }
+
+            val command = args[0]
+            val params = args.drop(1).toTypedArray()
+
+            val result = UnixCommands.executeCommand(command, params)
+            player.sendMessage(result)
+
+            true
+        }
     }
 }
